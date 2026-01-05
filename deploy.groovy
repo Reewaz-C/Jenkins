@@ -29,9 +29,12 @@ pipeline {
             steps {
                 sshagent(['EC2_SSH_KEY']) {
                     sh '''
-                    rsync -av --delete --exclude='.git' -e "ssh -p 22" ./ ubuntu@${SERVER_IP}:/var/www/html/        
+                    rsync -av --delete --exclude='.git' \
+                      -e "ssh -p 22 -o StrictHostKeyChecking=no" \
+                      ./ ubuntu@${SERVER_IP}:/var/www/html/        
                     
-                    ssh -p 22 ubuntu@${SERVER_IP} 'sudo systemctl restart nginx'
+                    # Added the same flag here for the restart command
+                    ssh -p 22 -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} 'sudo systemctl restart nginx'
                     '''
                 }
             }
