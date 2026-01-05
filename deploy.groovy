@@ -1,9 +1,10 @@
 pipeline {
-    agent
+    agent {
         docker {
             image 'yamanshakya/ssh-client'
             args '-u 0:0'
         }
+    }
     
     parameters {
         string(
@@ -24,16 +25,6 @@ pipeline {
     
     stages {
     
-        stage('Configure SSH') {
-            steps {
-                sh '''
-                cat <<EOF > ~/.ssh/config
-Host *
-    StrictHostKeyChecking no
-EOF
-                '''
-            }
-        }
         stage('Deploy') {
             steps {
                 sshagent(['EC2_SSH_KEY']) {
