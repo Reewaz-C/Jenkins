@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent
+        docker {
+            image 'yamanshakya/ssh-client'
+            args '-u 0:0'
+        }
     
     parameters {
         string(
