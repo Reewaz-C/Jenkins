@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(
             name: 'SERVER_IP',
-            defaultValue: '44.198.182.248',
+            defaultValue: '3.238.148.94',
             description: 'Enter server IP address'
         )
     }
