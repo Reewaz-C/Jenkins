@@ -27,15 +27,10 @@ pipeline {
         stage('Configure SSH') {
             steps {
                 sh '''
-                mkdir -p ~/.ssh
-                chmod 700 ~/.ssh
                 cat <<EOF > ~/.ssh/config
 Host *
     StrictHostKeyChecking no
 EOF
-                chmod 600 ~/.ssh/config
-                touch ~/.ssh/known_hosts
-                chmod 600 ~/.ssh/known_hosts
                 '''
             }
         }
