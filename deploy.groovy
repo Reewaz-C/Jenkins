@@ -11,6 +11,7 @@ pipeline {
     
     environment {
         SSH_KEY_ID = 'EC2_SSH_KEY'
+        SERVER_IP = "${params.SERVER_IP}"
     }
     
     triggers {
