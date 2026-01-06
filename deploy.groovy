@@ -49,9 +49,10 @@ pipeline {
                 sshagent(['EC2_SSH_KEY']) {
                     sh """
                         ssh -p 22 -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} '
-                        cd ~/node-app
-                        git pull origin Docker-build
-                        sudo docker compose down
+                        cd ~/node-app &&
+                        git pull origin Docker-build &&
+                        sudo docker compose down &&
+                        sudo docker system prune -af &&
                         sudo docker compose up -d --build
                         '
                     """
