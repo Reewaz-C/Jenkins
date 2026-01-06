@@ -49,9 +49,7 @@ pipeline {
                 sshagent(['EC2_SSH_KEY']) {
                     sh """
                         ssh -p 22 -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} '
-                        rm -rf ~/node-app || true
-                        git clone -b Docker-build https://github.com/Reewaz-C/Jenkins.git ~/node-app
-                        cd ~/node-app
+                        git pull origin Docker-build
                         sudo docker compose down || true
                         sudo docker compose up -d --build
                         '
