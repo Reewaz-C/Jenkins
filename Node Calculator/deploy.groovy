@@ -9,7 +9,7 @@ pipeline {
     parameters {
         string(
             name: 'SERVER_IP',
-            defaultValue: '44.192.127.149',
+            defaultValue: '34.205.8.149',
             description: 'Enter server IP address'
         )
     }
@@ -24,6 +24,30 @@ pipeline {
     }
     
     stages {
+
+        stage("Build Docker Image") {
+            steps {
+                sh 'docker build -t rexxx9865/mynodecalculatorapp:1.0.1 .'
+            }
+        }
+        stage("Dokcer Login") {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
+                }
+            }
+        }
+        stage("Push Docker Image") {
+            steps {
+                sh 'docker push rexxx9865/mynodecalculatorapp:1.0.1'
+            }
+        }
     
         stage('Deploy') {
             steps {
