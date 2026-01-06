@@ -51,7 +51,7 @@ pipeline {
                         ssh -p 22 -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} '
                         cd ~/node-app
                         git pull origin Docker-build
-                        sudo docker compose down || true
+                        sudo docker compose down
                         sudo docker compose up -d --build
                         '
                     """
