@@ -1,4 +1,4 @@
-# Node Calculator – CI/CD with Jenkins, Docker & Nginx Reverse Proxy
+# Write a Jenkins pipeline that builds your docker image, pushes it to Container Registry and pulls and runs it in EC2.
 
 This project demonstrates a **complete CI/CD pipeline** for a simple **Node.js Calculator application** using **Jenkins, Docker, Docker Hub, Docker Compose, and Nginx as a reverse proxy**.
 
