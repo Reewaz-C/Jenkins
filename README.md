@@ -22,9 +22,9 @@ The goal of this task is to show how a Node.js application can be **built, conta
 ## 🏗 Architecture Overview
 
 ```
-GitHub
+GitHub (Code push)
   ↓ 
-Jenkins
+Jenkins (Manual Trigger Build)
   ↓
 Docker Build & Push
   ↓
