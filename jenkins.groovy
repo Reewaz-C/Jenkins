@@ -49,10 +49,10 @@ EOF
                     ssh -o BatchMode=yes -p 22 \
                     -i /tmp/jenkins_keys/Riwaj-Key.pem \
                     ubuntu@44.192.127.149 \
-                    '
-                    git config --global --add safe.directory /usr/share/nginx/html
-                    cd /var/www/html && git pull origin main
-                    '
+                    "
+                    cd /var/www/html &&
+                    git pull origin main
+                    "
                 """
             }
         }
