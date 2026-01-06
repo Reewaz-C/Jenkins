@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'instrumentisto/rsync-ssh'
+            image 'yamanshakya/ssh-client'
             args '-u 0:0'
         }
     }
