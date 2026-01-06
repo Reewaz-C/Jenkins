@@ -1,50 +1,62 @@
 pipeline {
     agent any
+
     environment {
-        SSH_KEY64 = credentials('SSH_KEY64') // Jenkins secret text (Base64-encoded PEM)
+        SSH_KEY64 = credentials('SSH_KEY64') // Base64-encoded PEM key
     }
+
     parameters {
         string(
             name: 'SERVER_IP',
             defaultValue: '44.192.127.149',
-            description: "Enter the server IP ADDRESS"
+            description: 'Enter the server IP address'
         )
     }
+
     stages {
+
         stage('Configure SSH') {
             steps {
                 sh '''
                     mkdir -p ~/.ssh
                     chmod 700 ~/.ssh
-                    cat > ~/.ssh/config <<'EOF'
+
+                    cat > ~/.ssh/config <<EOF
 Host *
-  StrictHostKeyChecking no
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
 EOF
-                    cat ~/.ssh/config
-                    touch ~/.ssh/known_hosts
-                    chmod 600 ~/.ssh/known_hosts
+
+                    chmod 600 ~/.ssh/config
                 '''
             }
         }
-        stage('SSH Key Access') {
+
+        stage('Prepare SSH Key') {
             steps {
-                // Use double quotes for Groovy variable interpolation
                 sh """
                     mkdir -p /tmp/jenkins_keys
-                    echo "$SSH_KEY64" | base64 -d > /tmp/jenkins_keys/Riwaj-Key.pem
+                    echo "$SSH_KEY64" | base64 --decode > /tmp/jenkins_keys/Riwaj-Key.pem
                     chmod 600 /tmp/jenkins_keys/Riwaj-Key.pem
                     ssh-keygen -R ${params.SERVER_IP} || true
                 """
             }
         }
+
         stage('Deploy Code to Server') {
             steps {
-                // Use triple double quotes for Groovy interpolation
                 sh """
-                    ssh -i /tmp/jenkins_keys/Riwaj-Key.pem ec2-user@${params.SERVER_IP} \
-                        "cd /usr/share/nginx/html && git pull"
+                    ssh -i /tmp/jenkins_keys/Riwaj-Key.pem \
+                    ec2-user@${params.SERVER_IP} \
+                    'cd /usr/share/nginx/html && git pull origin main'
                 """
             }
+        }
+    }
+
+    post {
+        always {
+            sh 'rm -rf /tmp/jenkins_keys'
         }
     }
 }
