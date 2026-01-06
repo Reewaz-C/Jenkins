@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'yamanshakya/ssh-client'
-            args '-u 0:0'
-        }
-    }
+    agent any
     
     parameters {
         string(
@@ -30,7 +25,7 @@ pipeline {
                 sh 'docker build -t rexxx9865/jenkinsnodeapp:1.0.1 .'
             }
         }
-        stage("Dokcer Login") {
+        stage("Docker Login") {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
@@ -54,9 +49,9 @@ pipeline {
                 sshagent(['EC2_SSH_KEY']) {
                     sh """
                         ssh -p 22 -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} '
-                        cd /var/www/html &&
-                        git pull origin main &&
-                        sudo systemctl restart nginx
+                        docker pull rexxx9865/jenkinsnodeapp:1.0.1
+                        docker compose down || true
+                        docker compose up -d --build
                         '
                     """
                 }
