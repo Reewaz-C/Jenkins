@@ -48,7 +48,7 @@ EOF
                 sh """
                     ssh -p 22 -i /tmp/jenkins_keys/Riwaj-Key.pem \
                     ubuntu@${params.SERVER_IP} \
-                    'cd /usr/share/nginx/html && git pull origin main'
+                    'cd /var/www/html && git pull origin main'
                 """
             }
         }
