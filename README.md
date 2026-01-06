@@ -124,17 +124,6 @@ Browser → Nginx (80) → Node App (3000)
 
 ---
 
-## 🧠 Key DevOps Concepts Demonstrated
-
-* CI/CD automation with Jenkins
-* Docker image versioning
-* Secure credentials handling
-* Reverse proxy using Nginx
-* Infrastructure reproducibility
-* Idempotent deployments using `|| true`
-
----
-
 ## 🧪 How to Access the App
 
 Once deployed, open your browser:
@@ -145,8 +134,4 @@ http://<EC2_PUBLIC_IP>
 
 The calculator UI will be served via **Nginx**.
 
----
-
-## 📌 Notes
-
-* `|| true` is used to prevent pipeline failure when stopping non-existing containers
+![alt text]({1190F102-D7FC-4C18-9C1B-F9D9EA3ADFEF}.png)
