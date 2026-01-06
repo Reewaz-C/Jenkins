@@ -49,9 +49,10 @@ pipeline {
                 sshagent(['EC2_SSH_KEY']) {
                     sh """
                         ssh -p 22 -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} '
-                        docker pull rexxx9865/jenkinsnodeapp:1.0.1
-                        docker compose down || true
-                        docker compose up -d --build
+
+                        sudo docker pull rexxx9865/jenkinsnodeapp:1.0.1
+                        sudo docker compose down || true
+                        sudo docker compose up -d --build
                         '
                     """
                 }
