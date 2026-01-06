@@ -31,8 +31,8 @@ EOF
                 // Use double quotes for Groovy variable interpolation
                 sh """
                     mkdir -p /tmp/jenkins_keys
-                    echo "$SSH_KEY64" | base64 -d > /tmp/jenkins_keys/myKey.pem
-                    chmod 600 /tmp/jenkins_keys/myKey.pem
+                    echo "$SSH_KEY64" | base64 -d > /tmp/jenkins_keys/Riwaj-Key.pem
+                    chmod 600 /tmp/jenkins_keys/Riwaj-Key.pem
                     ssh-keygen -R ${params.SERVER_IP} || true
                 """
             }
@@ -41,7 +41,7 @@ EOF
             steps {
                 // Use triple double quotes for Groovy interpolation
                 sh """
-                    ssh -i /tmp/jenkins_keys/myKey.pem ec2-user@${params.SERVER_IP} \
+                    ssh -i /tmp/jenkins_keys/Riwaj-Key.pem ec2-user@${params.SERVER_IP} \
                         "cd /usr/share/nginx/html && git pull"
                 """
             }
