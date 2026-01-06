@@ -115,7 +115,7 @@ Browser → Nginx (80) → Node App (3000)
 ## 🚀 Deployment Flow
 
 1. Code is pushed to GitHub
-2. GitHub webhook triggers Jenkins
+2. Manually trigger pipeline
 3. Jenkins builds Docker image
 4. Image is pushed to Docker Hub
 5. Jenkins connects to EC2 via SSH
@@ -150,15 +150,3 @@ The calculator UI will be served via **Nginx**.
 ## 📌 Notes
 
 * `|| true` is used to prevent pipeline failure when stopping non-existing containers
-* `docker compose up -d` is used instead of `--build` on EC2 because images are pre-built in CI
-* All configuration files are version-controlled in GitHub
-
----
-
-## ✅ Outcome
-
-This task successfully demonstrates a **real-world DevOps CI/CD workflow** for a containerized Node.js application using industry best practices.
-
----
-
-👨‍💻 **Author:** Riwaj Chipalu
