@@ -46,7 +46,7 @@ EOF
         stage('Deploy Code to Server') {
             steps {
                 sh """
-                    ssh -i /tmp/jenkins_keys/Riwaj-Key.pem \
+                    ssh -p 22 -i /tmp/jenkins_keys/Riwaj-Key.pem \
                     ec2-user@${params.SERVER_IP} \
                     'cd /usr/share/nginx/html && git pull origin main'
                 """
