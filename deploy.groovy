@@ -12,6 +12,8 @@ pipeline {
     environment {
         SSH_KEY_ID = 'EC2_SSH_KEY'
         SERVER_IP = "${params.SERVER_IP}"
+        IMAGE_NAME = "rexxx9865/jenkinsnodeapp:1.0.1"
+        IMAGE_TAG = "1.0.${Build_number}"
     }
     
     triggers {
@@ -22,7 +24,7 @@ pipeline {
 
         stage("Build Docker Image") {
             steps {
-                sh 'docker build -t rexxx9865/jenkinsnodeapp:1.0.1 .'
+                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG}.'
             }
         }
         stage("Docker Login") {
@@ -40,7 +42,7 @@ pipeline {
         }
         stage("Push Docker Image") {
             steps {
-                sh 'docker push rexxx9865/jenkinsnodeapp:1.0.1'
+                sh 'docker push ${IMAGE_NAME}:${IMAGE_TAG}'
             }
         }
     
@@ -49,11 +51,9 @@ pipeline {
                 sshagent(['EC2_SSH_KEY']) {
                     sh """
                         ssh -p 22 -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} '
-                        cd ~/node-app &&
-                        git pull origin Docker-build &&
-                        sudo docker compose down &&
                         sudo docker system prune -af &&
-                        sudo docker compose up -d --build
+                        sudo docker pull ${IMAGE_NAME}:${IMAGE_TAG}
+                        sudo docker compose -f ${IMAGE_NAME}:${IMAGE_TAG} up -d
                         '
                     """
                 }
