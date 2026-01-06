@@ -53,7 +53,7 @@ pipeline {
                         ssh -p 22 -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} '
                         sudo docker system prune -af &&
                         sudo docker pull ${IMAGE_NAME}:${IMAGE_TAG}
-                        sudo docker compose -f ${IMAGE_NAME}:${IMAGE_TAG} up -d
+                        sudo docker compose up -d
                         '
                     """
                 }
