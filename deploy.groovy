@@ -12,7 +12,7 @@ pipeline {
     environment {
         SSH_KEY_ID = 'EC2_SSH_KEY'
         SERVER_IP = "${params.SERVER_IP}"
-        IMAGE_NAME = "rexxx9865/jenkinsnodeapp:1.0.1"
+        IMAGE_NAME = "rexxx9865/jenkinsnodeapp"
         IMAGE_TAG = "1.0.1"
     }
     
@@ -24,7 +24,7 @@ pipeline {
 
         stage("Build Docker Image") {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG}.'
+                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
             }
         }
         stage("Docker Login") {
