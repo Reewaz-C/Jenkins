@@ -46,9 +46,13 @@ EOF
         stage('Deploy Code to Server') {
             steps {
                 sh """
-                    ssh -p 22 -i /tmp/jenkins_keys/Riwaj-Key.pem \
-                    ubuntu@${params.SERVER_IP} \
-                    'cd /var/www/html && git pull origin main'
+                    ssh -o BatchMode=yes -p 22 \
+                    -i /tmp/jenkins_keys/Riwaj-Key.pem \
+                    ubuntu@44.192.127.149 \
+                    '
+                    git config --global --add safe.directory /usr/share/nginx/html
+                    cd /usr/share/nginx/html && git pull origin main
+                    '
                 """
             }
         }
