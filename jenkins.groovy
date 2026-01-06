@@ -51,7 +51,7 @@ EOF
                     ubuntu@44.192.127.149 \
                     '
                     git config --global --add safe.directory /usr/share/nginx/html
-                    cd /usr/share/nginx/html && git pull origin main
+                    cd /var/www/html && git pull origin main
                     '
                 """
             }
