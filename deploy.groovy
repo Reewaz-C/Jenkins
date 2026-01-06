@@ -27,7 +27,7 @@ pipeline {
 
         stage("Build Docker Image") {
             steps {
-                sh 'docker build -t rexxx9865/mynodecalculatorapp:1.0.1 .'
+                sh 'docker build -t rexxx9865/jenkinsnodeapp:1.0.1 .'
             }
         }
         stage("Dokcer Login") {
@@ -45,7 +45,7 @@ pipeline {
         }
         stage("Push Docker Image") {
             steps {
-                sh 'docker push rexxx9865/mynodecalculatorapp:1.0.1'
+                sh 'docker push rexxx9865/jenkinsnodeapp:1.0.1'
             }
         }
     
