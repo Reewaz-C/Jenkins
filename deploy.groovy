@@ -13,7 +13,7 @@ pipeline {
         SSH_KEY_ID = 'EC2_SSH_KEY'
         SERVER_IP = "${params.SERVER_IP}"
         IMAGE_NAME = "rexxx9865/jenkinsnodeapp:1.0.1"
-        IMAGE_TAG = "1.0.${Build_number}"
+        IMAGE_TAG = "1.0.1"
     }
     
     triggers {
