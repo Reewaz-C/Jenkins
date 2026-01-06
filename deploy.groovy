@@ -51,10 +51,9 @@ pipeline {
                 sshagent(['EC2_SSH_KEY']) {
                     sh """
                         ssh -p 22 -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} '
-                        cd ~/node-app &&
                         sudo docker pull ${IMAGE_NAME}:${IMAGE_TAG} &&
-                        sudo docker compose down &&
-                        sudo docker compose up -d
+                        sudo docker compose -f /home/ubuntu/node-app/docker-compose.yaml down &&
+                        sudo docker compose -f /home/ubuntu/node-app/docker-compose.yaml up -d
                         '
                     """
                 }
