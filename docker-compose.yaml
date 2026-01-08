@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   node-app:
-    build: .
+    image: rexxx9865/jenkinsnodeapp:1.0.1
     container_name: node-calculator
     expose:
       - "3000"
